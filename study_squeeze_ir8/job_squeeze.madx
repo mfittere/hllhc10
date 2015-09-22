@@ -44,12 +44,12 @@ return;
 
 exec, crossing_enable;
 
-exec,make_opticstbl_ir8(ir8);
+!exec,make_opticstbl_ir8(ir8);
 exec,read_opticstbl(ir8);
 on_opticstbl_ir8 = 1 ;
 exec,store_optics(ir8);
 
-!start at 8 = 0.135 cm
+!--- new IR8 thick optics
 call,file="toolkit/clean_specs.madx";
 bet8=2.95;
 betx_ip8=bet8;bety_ip8=bet8;alfx_ip8=0;alfy_ip8=0;
@@ -65,9 +65,9 @@ exec,selectIRAUX(3,4,5,6,7,b2,scxir5,scyir5,betx0_ip5,bety0_ip5);
 on_holdselect=1; jac_tol=1e-22; jac_bisec=3;
 jac_calls=   15;jac_tol=1e-12;
 jac_calls=   0;
-match_on_aperture=0;on_fixedip=0;
-bet8=0.55;
-epsap=0;
+match_on_aperture=1;on_fixedip=0;
+bet8=0.70;
+epsap=0;!-865;
 betxip8b1=bet8;betyip8b1=bet8;
 betxip8b2=bet8;betyip8b2=bet8;
 call,file="toolkit/rematch_ir8b12.madx";
@@ -77,12 +77,34 @@ exec,check_ip(b1); exec,check_ip(b2);
 exec,check_ip(b1); exec,check_ip(b2);
 call,file="toolkit/rematch_globalw.madx";
 call,file="toolkit/rematch_crossing.madx";
+call,file="slhc/toolkit/rematch_crabs.madx";
 if (tarcrossing>1e-15) { return;};
 on_check=1; call,file="toolkit/save_optics.madx";
 
-!make thin optics
+!--- thin optics
+call,file="opt_round_ip8_200_200.madx";
+exec, save_optics(8,opt_ir8_200.madx);
+call,file="opt_round_ip8_100_100.madx";
+exec, save_optics(8,opt_ir8_100.madx);
+call,file="opt_round_ip8_70_70.madx";
+exec, save_optics(8,opt_ir8_70.madx);
+call,file="slhc/opt_round.madx";
+exec, myslice;
+call,file="slhc/opt_round_thin.madx";
+exec,check_ip(b1); exec,check_ip(b2);
+call,file="opt_ir8_70.madx";
+call,file="toolkit/clean_specs.madx";
+exec,check_ip(b1); exec,check_ip(b2);
+!comment other IR8s except IR8
+match_on_aperture=0;on_fixedip=0;
+call,file="toolkit/rematch_squeeze.madx";
+if (tarsqueeze>1e-15) { return;};
+call,file="toolkit/rematch_globalw.madx";
+call,file="toolkit/rematch_crossing.madx";
+call,file="slhc/toolkit/rematch_crabs.madx";
+on_check=1; call,file="toolkit/save_optics.madx";
 
-!check n1 arc for collision energy
+!--- aperture
 emittance_norm=3.5e-6;
 apbbeat=1.1;
 halor=6.001; halox=6; haloy=6;
