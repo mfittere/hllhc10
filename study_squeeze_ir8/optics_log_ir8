@@ -1,5 +1,7 @@
-1     original opt_round.madx, beta_ip8=3.0 m
-2     original opt_round.madx, beta_ip8=2.0 m
-3     original opt_round.madx, beta_ip8=1.0 m
-4     original opt_round.madx, beta_ip8=0.70 m
-5     original opt_round.madx, beta_ip8=0.55 m, peak in Q7/Q6
+1     original opt_round.madx, beta_ip8=3.0 m, kqx.l8=const
+2     beta_ip8=2.0 m, kqx.l8=const
+3     beta_ip8=1.0 m, kqx.l8=const
+4     beta_ip8=0.70 m, kqx.l8=const, peak in Q7/Q6
+5     beta_ip8=0.55 m, kqx.l8=const, peak in Q7/Q6
+6     beta_ip8=0.9 m, kqx.l8=const -> for smaller beta* either peaks in Q7/Q6 develope, or the triplet has to be touched
+7     beta_ip8=1.0 m, kqx.l8=changed, no peaks in Q7/Q6 
