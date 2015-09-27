@@ -45,7 +45,7 @@ if(abs(paramxIPirnb1ref - paramxIPirnb1) > 1.e-6){
   printf,text="   !!! paramxIPirnb1 differ: paramxIPirnb1ref=%11.6f; paramxIPirnb1=%11.6f",value=paramxIPirnb1ref,paramxIPirnb1;
 };
 if(abs(paramyIPirnb1ref - paramyIPirnb1) > 1.e-6){
-  fl_ip_ip=0;
+  fl_ip=0;
   printf,text="   !!! paramyIPirnb1 differ: paramyIPirnb1ref=%11.6f; paramyIPirnb1=%11.6f",value=paramyIPirnb1ref,paramyIPirnb1;
 };
 if(abs(paramxIPirnb2ref - paramxIPirnb2) > 1.e-6){
